@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prisoner Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .prisoner-details {
+            display: flex;
+            gap: 20px;
+        }
+        .prisoner-details img {
+            border-radius: 10px;
+            width: 200px;
+            height: auto;
+        }
+        .details-info {
+            max-width: 600px;
+        }
+        .details-info h2 {
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="prisoner-details">
+        <img id="prisonerImage" src="" alt="Prisoner Image">
+        <div class="details-info">
+            <h2 id="prisonerName">Prisoner Name</h2>
+            <p><strong>Case ID:</strong> <span id="caseId"></span></p>
+            <p><strong>Age:</strong> <span id="age"></span></p>
+            <p><strong>Crime:</strong> <span id="crime"></span></p>
+            <p><strong>Date of Arrest:</strong> <span id="dateOfArrest"></span></p>
+            <p><strong>Additional Info:</strong> <span id="additionalInfo"></span></p>
+        </div>
+    </div>
+
+    <script>
+        // Dummy detailed data
+        const prisonerDetails = {
+            id: new URLSearchParams(window.location.search).get('id'),
+            image: `https://via.placeholder.com/150?text=Prisoner+${new URLSearchParams(window.location.search).get('id')}`,
+            name: `Prisoner ${new URLSearchParams(window.location.search).get('id')}`,
+            caseId: `CID${new URLSearchParams(window.location.search).get('id')}`,
+            age: Math.floor(Math.random() * 40) + 20,
+            crime: 'Crime Example',
+            dateOfArrest: '2023-05-12',
+            additionalInfo: 'Additional information about the prisoner.'
+        };
+
+        // Populate detailed information
+        document.getElementById('prisonerImage').src = prisonerDetails.image;
+        document.getElementById('prisonerName').textContent = prisonerDetails.name;
+        document.getElementById('caseId').textContent = prisonerDetails.caseId;
+        document.getElementById('age').textContent = prisonerDetails.age;
+        document.getElementById('crime').textContent = prisonerDetails.crime;
+        document.getElementById('dateOfArrest').textContent = prisonerDetails.dateOfArrest;
+        document.getElementById('additionalInfo').textContent = prisonerDetails.additionalInfo;
+    </script>
+</body>
+</html>

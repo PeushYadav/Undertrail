@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Undertrial Prisoners</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .search-box {
+            text-align: center;
+            margin: 20px;
+        }
+        input[type="text"] {
+            padding: 10px;
+            width: 50%;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .prisoners-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
+            padding: 20px;
+        }
+        .prisoner-box {
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 10px;
+            text-align: center;
+            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+        }
+        .prisoner-box img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+        .prisoner-box h3 {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="search-box">
+        <input type="text" id="search" placeholder="Search by Name or Case ID" onkeyup="filterPrisoners()">
+    </div>
+
+    <div class="prisoners-grid" id="prisonersGrid">
+        <!-- Prisoner Cards will be inserted here by JavaScript -->
+    </div>
+
+    <script defer>
+        // Dummy Data for 100 Prisoners
+        const prisoners = [];
+        for (let i = 1; i <= 100; i++) {
+            prisoners.push({
+                id: i,
+                caseId: `CID${i}`,
+                name: `Prisoner ${i}`,
+                age: Math.floor(Math.random() * 40) + 20,
+                image: `https://via.placeholder.com/100x100?text=Prisoner+${i}`,
+                details: `detailed.html?id=${i}`
+            });
+        }
+
+        // Function to display prisoners in grid
+        function displayPrisoners(prisoners) {
+            const grid = document.getElementById('prisonersGrid');
+            grid.innerHTML = ''; // Clear previous content
+            prisoners.forEach(prisoner => {
+                grid.innerHTML += `
+                    <div class="prisoner-box" onclick="openDetails('${prisoner.details}')">
+                        <img src="${prisoner.image}" alt="${prisoner.name}" loading="lazy">
+                        <h3>${prisoner.name}</h3>
+                        <p>Case ID: ${prisoner.caseId}</p>
+                        <p>Age: ${prisoner.age}</p>
+                    </div>
+                `;
+            });
+        }
+
+        // Initial Display of all prisoners
+        displayPrisoners(prisoners);
+
+        // Function to filter prisoners based on search input
+        function filterPrisoners() {
+            const query = document.getElementById('search').value.toLowerCase();
+            const filteredPrisoners = prisoners.filter(prisoner =>
+                prisoner.name.toLowerCase().includes(query) || prisoner.caseId.toLowerCase().includes(query)
+            );
+            displayPrisoners(filteredPrisoners);
+        }
+
+        // Function to open detailed prisoner page
+        function openDetails(url) {
+            window.location.href = url;
+        }
+    </script>
+</body>
+</html>
